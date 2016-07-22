@@ -9,4 +9,8 @@ describe(Tag) do
     long_category = Tag.new({:category => "n".*(21)})
     expect(long_category.save()).to(eq(false))
   end
+  it("capitalizes the Category name") do
+    test_tag = Tag.create({:category => "falsy"})
+    expect(test_tag.category()).to(eq("Falsy"))
+  end
 end
