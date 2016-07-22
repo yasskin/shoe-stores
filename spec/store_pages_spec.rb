@@ -16,3 +16,13 @@ describe('create a route to List all shoe stores', {:type => :feature}) do
     expect(page).to have_content('NIL CLASS')
   end
 end
+
+describe('Update the NEW STORE default name with a new store name', {:type => :feature}) do
+  it('takes the user to a unique store page where the store name can be updated') do
+    visit('/')
+    click_button('Create New Shoe Store')
+    fill_in("store-name", :with => "drop 'n' pop")
+    click_button("Update")
+    expect(page).to have_content("DROP 'N' POP")
+  end
+end

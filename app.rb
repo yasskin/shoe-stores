@@ -26,3 +26,14 @@ get('/stores/:id') do
   @store = Store.find(params.fetch('id').to_i())
   erb(:store)
 end
+
+patch('/stores/:id') do
+  store_id = params.fetch('id').to_i()
+  @store = Store.find(store_id)
+  name = params.fetch('store-name')
+  if @store.update(:store_name => name)
+    redirect('/stores/'.concat(@store.id().to_s()))
+  else
+    erb(:recipes)
+  end
+end
