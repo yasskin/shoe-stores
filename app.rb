@@ -45,8 +45,8 @@ get('/stores/:id') do
 end
 
 get('/brands/:id') do
-  @store = Store.find(params.fetch('id').to_i())
-  @brands = Brand.all()
+  @brand = Brand.find(params.fetch('id').to_i())
+  @stores = Store.all()
   erb(:brand)
 end
 

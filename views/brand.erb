@@ -1,0 +1,18 @@
+<h1>Shoe Brand Name: <%= @brand.brand_name() %></h1>
+
+<h3>List of all the Shoe Stores that carry <%= @brand.brand_name()%></h3>
+
+<% if @brand.stores().any?() %>
+  <ul>
+    <% @brand.stores().each() do |store| %>
+      <li><a href="/stores/<%= store.id() %>"><%= store.store_name() %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <h3>There are no stores that carry this brand</h3>
+<% end %>
+
+<hr>
+<a href="/stores">List All Shoe Stores</a>
+<br>
+<a href="/">Home</a>
