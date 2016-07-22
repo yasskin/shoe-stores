@@ -10,33 +10,37 @@
 </form>
 
 <hr>
-
-<!-- <% if @brands.any?() %>
-<h3>A readout of the Shoe Brands at <%= @store.store_name() %></h3>
+<% if @brands.any? %>
+<h3>A Readout of the Shoe Brands</h3>
   <ul class="store-list">
     <% @brands.each() do |brand| %>
-    <form action="/brands/<%= brand.id()%>" method="post">
+    <form action="/brands/<%= brand.id() %>" method="post">
       <input type="hidden" name="_method" value="delete">
-      <input type="hidden" name="brand-id" value="<%= @brand.id() %>">
+      <input type="hidden" name="store_id" value="<%= @store.id() %>">
       <button class="brand-btn btn btn-danger" type="submit">X</button>
     </form>
-    <li><%= brand.brand_name() %></li>
-    <% end %>
-  </ul>
-  <% else %>
-  <h3>There are no Shoe Brands at <%= @store.store_name() %></h3>
-<hr> -->
+  <li><%= brand.brand_name() %></li>
+  <% end %>
+</ul>
+<% else %>
+<h3>There are no Shoe Brands at <%= @store.store_name() %></h3>
+<% end %>
 
+<div class="clearfix"></div>
+<hr>
 <form action="/brands" method="post">
-  <input type="hidden" name="store-id" value="<%= @store.id() %>">
+  <input type="hidden" name="store_id" value="<%= @store.id() %>">
   <input type="text" name="brand-name">
   <button class="btn btn-success" type="submit">Create Brand Name</button>
 </form>
 
-
+<hr>
 <form action="/stores/<%= @store.id() %>" method="post">
   <input type="hidden" name="_method" value="delete">
   <button class="btn btn-danger" type="submit">Destroy Store</button>
 </form>
+
 <hr>
 <a href="/stores">List All Shoe Stores</a>
+<br>
+<a href="/">Home</a>

@@ -13,7 +13,7 @@ get('/stores') do
 end
 
 get('/brands') do
-  @brands = Brands.all()
+  @brands = Brand.all()
   erb(:brands)
 end
 
@@ -28,18 +28,26 @@ post('/stores') do
 end
 
 post('/brands') do
-  store_id = params.fetch('store-id')
+  store_id = params.fetch('store_id')
   @store = Store.find(store_id)
   brand_name = params.fetch('brand-name')
-  @brand_name = @store.brands.new(:brand_name => brand_name)
-  @store.brands.push(@brand_name)
+  @brand = @store.brands.new(:brand_name => brand_name)
+  @store.brands.push(@brand)
   redirect('/stores/'.concat(@store.id().to_s()))
-
+  erb(:stores)
 end
 
 get('/stores/:id') do
   @store = Store.find(params.fetch('id').to_i())
+  @brands = @store.brands()
+  @tags = @store.tags()
   erb(:store)
+end
+
+get('/brands/:id') do
+  @store = Store.find(params.fetch('id').to_i())
+  @brands = Brand.all()
+  erb(:brand)
 end
 
 patch('/stores/:id') do
@@ -49,7 +57,7 @@ patch('/stores/:id') do
   if @store.update(:store_name => name)
     redirect('/stores/'.concat(@store.id().to_s()))
   else
-    erb(:recipes)
+    erb(:stores)
   end
 end
 

@@ -33,3 +33,22 @@ Search lessons
 Search
 © 2016 Epicodus, Inc.
 https://www.learnhowtoprogram.com/ruby/databases-with-active-record/active-record-independent-project
+
+
+<% if @brands.any?() %>
+<h3>A Readout of the Shoe Brands at <%= @store.store_name() %></h3>
+  <ul class="store-list">
+    <% @brands.each() do |brand| %>
+    <form action="/brands/<%= brand.id()%>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="hidden" name="brand-id" value="<%= @brand.id() %>">
+      <button class="brand-btn btn btn-danger" type="submit">X</button>
+    </form>
+    <li><%= brand.brand_name() %></li>
+    <% end %>
+</ul>
+<% else %>
+<h3>There are no Shoe Brands at <%= @store.store_name() %></h3>
+<% end %>
+
+<div class="clearfix"></div>
