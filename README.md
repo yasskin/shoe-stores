@@ -6,20 +6,18 @@
 
 ## Description
 
-_A program to track shoe brands and what stores they are in:
+_A program to track shoe brands and what stores they are in:_
 
-* Users are able to add, update, delete and list shoe stores.
-* Users are able to add shoe brands in the application.
+* _Users are able to add, update, delete and list shoe stores._
+* _Users are able to add shoe brands in the application._
 * Users are able to add shoe brands to a store to show where they are sold.
 * Users are able to see all of the brands a store sells on the individual store page.
 * Users can store names and shoe brands to be saved with a capital letter no matter how they are entered.
-* Users do not see stores and shoes to be saved if a blank name is entered._
+* Users do not see stores and shoes to be saved if a blank name is entered.
 
-## Setup/Installation Requirements
+## Setup/Installation Requirements_
 
-* _This application is available for downloading at GitHUb_
-
-A [link] (http://example.com).
+* _This application is available for downloading at GitHUb:_
 
 [https://github.com/yasskin/shoe-stores.git]
 
@@ -36,13 +34,13 @@ _If you run into any issues or have questions, ideas or concerns - or simply wan
 ## Technologies Used
 
 * _HTML and CSS, with Bootstrap_
-* _Ruby, Sinatra, Capybara
+* _Ruby, Sinatra, Capybara_
 * _PSQL_
 
 ### License
 
 
 * _All images are copyright free_
-* _Licensed under MIT_*
+* _Licensed under MIT
 
 Copyright (c) 2016 **_Noah Yasskin, Epicodus_**
