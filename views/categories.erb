@@ -1,6 +1,19 @@
 <h1>List of Shoe Categories</h1>
 
 <hr>
+<% if @tags.any?() %>
+<ul>
+  <% @tags.each do |tag| %>
+  <li><a href="/tags/<%= tag.id() %>"><%= tag.category()%></a></li>
+  <% end %>
+</ul>
+<% else %>
+<p>There are no Shoe Categories yet!</p>
+<hr>
+<a href="/">Create a Shoe Store</a>
+<% end %>
+
+<hr>
 <a href="/stores">List All Shoe Stores</a>
 <br>
 <a href="/">Home</a>

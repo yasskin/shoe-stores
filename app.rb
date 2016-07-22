@@ -17,6 +17,11 @@ get('/brands') do
   erb(:brands)
 end
 
+get('/tags') do
+  @tags = Tag.all()
+  erb(:categories)
+end
+
 post('/stores') do
   name = params.fetch('name')
   @store = Store.new(:id => nil, :store_name => name)
@@ -31,10 +36,23 @@ post('/brands') do
   store_id = params.fetch('store-id')
   @store = Store.find(store_id)
   brand_name = params.fetch('brand-name')
-  @brand = @store.brands.new(:brand_name => brand_name)
-  @store.brands.push(@brand)
+  @brand = Brand.new(:brand_name => brand_name)
+  if @brand.save()
+    @store.brands.push(@brand)
+    redirect('/stores/'.concat(@store.id().to_s()))
+  else
+    erb(:brand_errors)
+  end
+end
+
+post('/tags') do
+  store_id = params.fetch('store-id')
+  @store = Store.find(store_id)
+  category = params.fetch('category')
+  @category = @store.tags.new({:category => category})
+  @store.tags.push(@category)
   redirect('/stores/'.concat(@store.id().to_s()))
-  erb(:stores)
+  erb(:store)
 end
 
 get('/stores/:id') do
@@ -50,6 +68,12 @@ get('/brands/:id') do
   erb(:brand)
 end
 
+get('/tags/:id') do
+  @tag = Tag.find(params.fetch('id').to_i())
+  @stores = Store.all()
+  erb(:category)
+end
+
 patch('/stores/:id') do
   store_id = params.fetch('id').to_i()
   @store = Store.find(store_id)
@@ -57,7 +81,7 @@ patch('/stores/:id') do
   if @store.update(:store_name => name)
     redirect('/stores/'.concat(@store.id().to_s()))
   else
-    erb(:stores)
+    erb(:store_errors)
   end
 end
 
@@ -66,14 +90,22 @@ delete('/stores/:id') do
   @store = Store.find(store_id)
   @store.destroy()
   redirect('/')
-  erb(:index)
 end
 
 delete('/brands/:id') do
-  brand_id = params.fetch('store-id')
-  @store = Store.find(brand_id)
+  store_id = params.fetch('store-id')
+  @store = Store.find(store_id)
   brand_id = params.fetch('id').to_i()
   @brand = Brand.find(brand_id)
   @store.brands.destroy(@brand)
+  redirect('/stores/'.concat(@store.id().to_s()))
+end
+
+delete('/tags/:id') do
+  store_id = params.fetch('store-id')
+  @store = Store.find(store_id)
+  tag_id = params.fetch('id').to_i()
+  @category = Tag.find(tag_id)
+  @store.tags.destroy(@category)
   redirect('/stores/'.concat(@store.id().to_s()))
 end
