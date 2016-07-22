@@ -12,6 +12,11 @@ get('/stores') do
   erb(:stores)
 end
 
+get('/brands') do
+  @brands = Brands.all()
+  erb(:brands)
+end
+
 post('/stores') do
   name = params.fetch('name')
   @store = Store.new(:id => nil, :store_name => name)
@@ -20,6 +25,16 @@ post('/stores') do
   else
     erb(:index)
   end
+end
+
+post('/brands') do
+  store_id = params.fetch('store-id')
+  @store = Store.find(store_id)
+  brand_name = params.fetch('brand-name')
+  @brand_name = @store.brands.new(:brand_name => brand_name)
+  @store.brands.push(@brand_name)
+  redirect('/stores/'.concat(@store.id().to_s()))
+
 end
 
 get('/stores/:id') do
