@@ -9,4 +9,8 @@ describe(Brand) do
     shoe_brand = Brand.new({:brand_name => "n".*(31)})
     expect(shoe_brand.save()).to(eq(false))
   end
+  it("capitalizes the brand name") do
+    cap_brand = Brand.create({:brand_name => "adidAS"})
+    expect(cap_brand.brand_name()).to(eq("Adidas"))
+  end
 end
