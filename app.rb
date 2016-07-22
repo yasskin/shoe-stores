@@ -37,3 +37,11 @@ patch('/stores/:id') do
     erb(:recipes)
   end
 end
+
+delete('/stores/:id') do
+  store_id = params.fetch('id').to_i()
+  @store = Store.find(store_id)
+  @store.destroy()
+  redirect('/')
+  erb(:index)
+end
