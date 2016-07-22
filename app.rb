@@ -28,7 +28,7 @@ post('/stores') do
 end
 
 post('/brands') do
-  store_id = params.fetch('store_id')
+  store_id = params.fetch('store-id')
   @store = Store.find(store_id)
   brand_name = params.fetch('brand-name')
   @brand = @store.brands.new(:brand_name => brand_name)
@@ -67,4 +67,13 @@ delete('/stores/:id') do
   @store.destroy()
   redirect('/')
   erb(:index)
+end
+
+delete('/brands/:id') do
+  brand_id = params.fetch('store-id')
+  @store = Store.find(brand_id)
+  brand_id = params.fetch('id').to_i()
+  @brand = Brand.find(brand_id)
+  @store.brands.destroy(@brand)
+  redirect('/stores/'.concat(@store.id().to_s()))
 end
