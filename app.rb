@@ -50,9 +50,12 @@ post('/tags') do
   @store = Store.find(store_id)
   category = params.fetch('category')
   @category = @store.tags.new({:category => category})
-  @store.tags.push(@category)
-  redirect('/stores/'.concat(@store.id().to_s()))
-  erb(:store)
+  if @category.save()
+    @store.tags.push(@category)
+    redirect('/stores/'.concat(@store.id().to_s()))
+  else
+    erb(:tag_errors)
+  end
 end
 
 get('/stores/:id') do
