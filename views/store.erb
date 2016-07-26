@@ -1,16 +1,54 @@
 <h1>Shoe Store Name: <%= @store.store_name() %></h1>
 
 <hr>
-
-<form action="/stores/<%= @store.id() %>" method="post">
+<h3>Update Store Name</h3>
+<form id="update_store_name" class="form-group" action="/stores/<%= @store.id()/update %>" method="post">
   <input type="hidden" name="_method" value="patch">
-  <label for="store-name">Update Store Name</label>
-  <input type="text" name="store-name">
+  <input type="hidden" name="form_id" value="update_store_name">
+  <label for="new_store_name">Update Store Name</label>
+  <input id="new_store_name" class="form-control" type="text" name="new_store_name">
   <button class="btn btn-info" type="submit">Update</button>
 </form>
 
 <hr>
-<form action="/stores/<%= @store.id() %>" method="post">
+<h3>Update Store with New Brands</h3>
+<% if @store_brands.any?() %>
+<h3>A List of all the brands <%= @store.store_name() %> carries</h3>
+<ul class="">
+  <% @store_brands.each() do |brand| %>
+  <form class="form-group" action="/stores/<%= @store.id() %>/destroy" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="brand_id" value="<% brand.id() %>">
+    <button class="btn btn-danger" type="submit">X</button>
+  </form>
+  <li><% brand.name() %></li>
+  <% end %>
+</ul>
+<% else %>
+<h3><%= @store.store_name() %> has no shoe brands yet</h3>
+<% end %>
+
+<% if @brands.any?() %>
+<h3>Shoe Brands Available To Add To <%= @store.store_name() %></h3>
+<form id="update_shoe_brands" class="form-group" action="/stores/<%= store.id() %>/update" method="post">
+<input type="hidden" name="_method" value="patch">
+<input type="hidden" name="form_id" value="update_shoe_brands">
+<label for="new_brand_name">Add Brands</label>
+<% @brands.each do |brand| %>
+<input type="checkbox" name="brand_ids[]" value="<%= brand.id %>"> <%= brand.name() %>
+<% end %>
+<br>
+<button class="btn btn-primary" type="submit">Add Brands</button>
+</form>
+<% else %>
+<h3>No shoe brands are available</h3>
+<% end %>
+
+
+
+<hr>
+<h3>Destroy a Store</h3>
+<form class="form-group" action="/stores/<%= @store.id() %>" method="post">
   <input type="hidden" name="_method" value="delete">
   <button class="btn btn-danger" type="submit">Destroy Store</button>
 </form>
