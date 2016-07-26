@@ -1,25 +1,22 @@
 require('spec_helper')
 
 describe('add Create a Brand route', {:type => :feature}) do
-  it('allows the user to add a shoe brand to a specific shoe store') do
+  it('allows the user to add a shoe brand') do
     visit('/')
-    test_store = Store.create({:store_name => "Stabby Lambda"})
-    click_link('List All Shoe Stores')
-    click_link('STABBY LAMBDA')
+    click_button('Create New Shoe Brand')
     fill_in('brand-name', :with => "upshift")
-    click_button('Create Brand Name')
+    click_button('Update')
     expect(page).to have_content("Upshift")
   end
 end
 
-describe('add Delete a Brand route', {:type => :feature}) do
+describe('add Delete a Brand', {:type => :feature}) do
   it('allows the user to delete a specific brand') do
     visit('/')
-    click_button('Create New Shoe Store')
+    click_button('Create New Shoe Brand')
     fill_in('brand-name', :with => "tilda")
-    click_button('Create Brand Name')
-    click_button('X')
-    expect(page).to have_content("There are no Shoe Brands")
+    click_button('Destroy Brand')
+    expect(page).to have_content("Create New Shoe Brand")
   end
 end
 
